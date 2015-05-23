@@ -1,0 +1,2 @@
+'use strict';
+module.exports = {"loginView":"<!DOCTYPE html>\n<html>\n<head lang=\"en\">\n    <meta charset=\"UTF-8\">\n    <title></title>\n</head>\n<body>\n\n</body>\n</html>","openView":"<label>this here is the opening content</label>"};
