@@ -10,28 +10,34 @@ module.exports = function(grunt){
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
-    concat:{
-      dist:{
-        src: 'views/**/*.html',
-        dest: 'build/test.js'
-      }
-    },
     add_view: {
       dist:{
-        src:  'views/**/*.html',
-        dest: 'js/build/views.js'
+        src:  'app/views/**/*.html',
+        dest: 'app/js/build/views.js'
+      },
+      dev:{
+        src:  'app/views/**/*.html',
+        dest: 'app/js/build/views.js'
       }
     },
     browserify:{
       dist:{
-        src: 'js/**/*.js',
-        dest: 'dist/bundle.js'
+        src: 'app/js/**/*.js',
+        dest: 'production/bundle.js'
+      },
+      dev:{
+        src: 'app/js/**/*.js',
+        dest: 'production/bundle.js'
       }
     },
     copy:{
       dist:{
         src: ['index.html'],
-        dest: 'dist/'
+        dest: 'production/'
+      },
+      dev:{
+        src: ['index.html'],
+        dest: 'production/'
       }
     }
   });
