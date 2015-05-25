@@ -6,3 +6,4 @@
 var views = require('./build/views');
 var content = document.getElementById('main-content');
 content.innerHTML = views.openView;
+require('./controllers/loginView')(views);
