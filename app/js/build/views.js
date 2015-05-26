@@ -1,2 +1,2 @@
 'use strict';
-module.exports = {"loginView":"<h1>User Login</h1>","openView":"<label>this here is the opening content</label>"};
+module.exports = {"home":"<main>\n    <h2>This is the Home View</h2>\n    <p>Here is some additional home view content</p>\n    <select>\n        <option>PickMe</option>\n        <option>No PickMe</option>\n    </select>\n    <ul>\n        <li>item one</li>\n        <li>item two</li>\n    </ul>\n</main>","loginView":"<h1>User Login</h1>","openView":"<label>this here is the opening content</label>"};
