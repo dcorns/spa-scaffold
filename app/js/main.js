@@ -4,9 +4,9 @@
  */
 'use strict';
 var views = require('./build/views');
+var controllers = require('./controllers/controllerRegistry')();
+var route = require('./router')(views, controllers);
 var helper = require('./helpers')();
-require('./controllers/loginView')(views);
-var route = require('./router')(views);
 
 function doOnLoad(){
   var lastHref = window.sessionStorage.getItem('href');
