@@ -31,5 +31,5 @@ node_modules
 production/
 development/
 app/js/build/
-app/styles/build/
+.sass-cache/
 
