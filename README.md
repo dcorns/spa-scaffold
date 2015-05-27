@@ -4,12 +4,15 @@
 
 ####Keeping all server side code other than server.js in the folder api.
 ####Keeping all client side code except for the static page index.html in the folder app.
-####Providing a Gruntfile.js that is pre-configured to provide building of development and production code.
+####Providing a Gruntfile.js that is pre-configured to enable building of development and production code.
 ####Providing a component view architecture that allows html files to be used as views anywhere including inside each other
 
 ####Explaination of parts and usage
 #####Simply clone the repository and start writing your app.
-#####My approach to this project is to provide all the requirements for enterprise web applications. You may want to remove the pieces that you do not require. For example, if you do not need a back end server in your application, you may want to remove the server components.
+#####My approach to this project is to provide all the requirements for enterprise web applications, but keeping everything as minimal as is possible. Still, you may want to remove the pieces that you do not require. For example, if you do not need a back end server in your application, you may want to remove the server components.
+
+
+
 
 #####The directory structure:
 #####The root contains Gruntfile.js, index.html, package.json and server.js
@@ -22,4 +25,46 @@
 #####will build production code, including copying all the images and videos and other static assets to the production folder but
     grunt build:prod
 #####will only build the code and copy it to the production directory.
-#####You will probably want modify Gruntfile.js for your own purposes.
+
+#####You will probably want modify grunt tasks for your own purposes. When doing so, keep in mind that the following order must be maintained for the build to work correctly. add_view, browserify, copy.
+
+#####Gitignore.js
+This file is prefigured to ignore the usual folders as well as the folders that contain dynamic content.
+
+####api folder
+This folder contains all the server side code and assets
+#####api/js
+Keep all the JavaScript here. The sub folders should be self explanatory.
+
+####app folder
+All the client side code and assets are stored here. images and video sub folders should be pretty obvious.
+#####app/js
+It is important to keep all your JavaScript files for the client under this folder. Sub folders are okay as long as they reside in this folder. If they do not, they will not be included in the build.
+#####app/js/build
+This folder is used to store files created by the build process. If you delete this folder the build will fail.
+#####app/js/controllers
+Use this folder to store JS files created to fire when an associated view is called.
+#####app/js/helpers.js
+Add functions to this file that are created to support the application globally.
+#####app/js/main.js
+Kick off the application here. Everything for startup goes here and here is where the application is wired together.
+#####app/js/router.js
+The function responsible for routing views and executing their respective controllers.
+#####app/sass
+Store sass and scss files here.
+#####app/styles
+This directory is for css files.
+#####app/views
+This folder should only contain html files created for views. Separate sub folders may be used. This is the directory used by add_view to compile the view.js object.
+
+####development
+Contains the results of the development build.
+####production
+Contains the results of the production build.
+####node_modules
+Contains all the node dependency modules
+
+
+
+
+
