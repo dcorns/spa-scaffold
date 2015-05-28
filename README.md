@@ -12,14 +12,14 @@
 #####My approach to this project is to provide all the requirements for enterprise web applications, but keeping everything as minimal as is possible. Still, you may want to remove the pieces that you do not require. For example, if you do not need a back end server in your application, you may want to remove the server components.
 
 ####Front End Usage
-#####JavaScript Files
+#####Adding JavaScript
 Store all JavaScript files in the js folder or a subdirectory of it. Dynamically created JavaScript goes in the js/build/ and nothing else should be stored there. The js/controllers/ folder is for js files that support application views. If a view requires JavaScript to be fired when it is loaded, it should be stored here with the same name as the view except for the js extension. The file should be structured like so:
 ```use strict;
    module.exports = function(){
     JavaScript to execute goes here
    };
 ```
-In addition crafting the JavaScript this way, the file must be registered in the `app/js/controllers/controllerRegistry.js` file by adding the file name (without the extension) as new property name and as the value preceded by ./ all enclosed in single quotes. For example the following registers a script called home.js and a script called login.js:
+In addition to crafting the JavaScript this way, the file must be registered in the `app/js/controllers/controllerRegistry.js` file by adding the file name (without the extension) as new property name and as the value preceded by ./ all enclosed in single quotes. For example the following registers a script called home.js and a script called login.js:
 ```
 'use strict';
 module.exports = function (){
@@ -29,6 +29,62 @@ module.exports = function (){
   };
 };
 ```
+Because it is a good practice to keep things small an modular, `helpers.js` is provided for containing functions that are useful to invoke throughout the application. Also in order to keep the controller files readable and the application more maintainable use this file to organize the application into small testable functions as much as possible. The file already contains winReady, which is used by main.js start the application.
+ In order to add a function to helper.js, simply add it as a method in the object that is being returned.
+ For example, if you want to add a function called cleanup, the following...
+```
+module.exports = function(){
+  return {
+    winReady: function (f) {
+      var preOnload = window.onload;
+      if (typeof preOnload !== 'function') {
+        window.onload = f;
+      }
+      else {
+        window.onload = function () {
+          preOnload();
+          f();
+        }
+      }
+    }
+  };
+};
+```
+becomes...
+
+```
+module.exports = function(){
+  return {
+    winReady: function (f) {
+      var preOnload = window.onload;
+      if (typeof preOnload !== 'function') {
+        window.onload = f;
+      }
+      else {
+        window.onload = function () {
+          preOnload();
+          f();
+        }
+      }
+    },
+    cleanup: function(x,y,z){
+    //do stuff with x, y z
+    }
+  };
+};
+```
+It is probable that the `helpers.js` file will grow to a size that makes breaking it down into more files practical. This is no problem. Simply keep the new files somewhere in the app/js parent folder and require them inside whatever js file in which you desire to access them similar to the way `helper.js` is required in `main.js`
+
+`var helper = require('./helpers')();`
+
+As you can see above, the object provided by `helper.js` is assigned to the variable named helper. In this way the functions from `helpers.js` are accessible by calling the method name off of helper: `helper.cleanup(x,y,z);`
+Files that you add and require in would be accessed the same way.
+
+`main.js`
+main.js is where the application is kicked off and tied together. Only startup requirements should be found or invoked here. If this file breaks, everything breaks.
+
+`router.js`
+router.js is responsible for displaying the view and invoking its controller code, if any. You probably want to leave it alone.
 
 #####The directory structure:
 #####The root contains Gruntfile.js, index.html, package.json and server.js
