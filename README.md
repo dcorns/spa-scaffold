@@ -84,7 +84,10 @@ Files that you add and require in would be accessed the same way.
 main.js is where the application is kicked off and tied together. Only startup requirements should be found or invoked here. If this file breaks, everything breaks.
 
 `router.js`
-router.js is responsible for displaying the view and invoking its controller code, if any. You probably want to leave it alone.
+router.js is responsible for displaying the view and invoking its controller code, if any. You probably will not want to modify this file.
+
+#####The Views
+Create the views using html partials and saving them in the app/views folder. During the build process, the html files in the app/views folder are compiled into a view object which is then saved to the `js/build/views.js` file. This file exports the object to the application.
 
 #####The directory structure:
 #####The root contains Gruntfile.js, index.html, package.json and server.js
@@ -135,8 +138,3 @@ Contains the results of the development build.
 Contains the results of the production build.
 ####node_modules
 Contains all the node dependency modules
-
-
-
-
-
