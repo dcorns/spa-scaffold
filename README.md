@@ -11,8 +11,24 @@
 #####Simply clone the repository and start writing your app.
 #####My approach to this project is to provide all the requirements for enterprise web applications, but keeping everything as minimal as is possible. Still, you may want to remove the pieces that you do not require. For example, if you do not need a back end server in your application, you may want to remove the server components.
 
-
-
+####Front End Usage
+#####JavaScript Files
+Store all JavaScript files in the js folder or a subdirectory of it. Dynamically created JavaScript goes in the js/build/ and nothing else should be stored there. The js/controllers/ folder is for js files that support application views. If a view requires JavaScript to be fired when it is loaded, it should be stored here with the same name as the view except for the js extension. The file should be structured like so:
+```use strict;
+   module.exports = function(){
+    JavaScript to execute goes here
+   };
+```
+In addition crafting the JavaScript this way, the file must be registered in the `app/js/controllers/controllerRegistry.js` file by adding the file name (without the extension) as new property name and as the value preceded by ./ all enclosed in single quotes. For example the following registers a script called home.js and a script called login.js:
+```
+'use strict';
+module.exports = function (){
+  return{
+    home: require('./home'),
+    loginView: require('./loginView')
+  };
+};
+```
 
 #####The directory structure:
 #####The root contains Gruntfile.js, index.html, package.json and server.js
